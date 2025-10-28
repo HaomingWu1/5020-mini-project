@@ -1,4 +1,4 @@
-# 🛰️ Mini Group Project I – Investigating Agricultural Burning with Remote Sensing Data
+#  Mini Group Project I – Investigating Agricultural Burning with Remote Sensing Data
 
  
 ### **Group Members:**  
