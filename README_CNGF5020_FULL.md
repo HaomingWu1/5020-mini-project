@@ -1,4 +1,4 @@
-# 🛰️ Mini Group Project I – Investigating Agricultural Burning with Remote Sensing Data
+# Mini Group Project I – Investigating Agricultural Burning with Remote Sensing Data
 
 ### **Course:** CNGF5020  
 ### **Region of Study:** Heilongjiang Province, China  
@@ -7,7 +7,7 @@
 
 ---
 
-## 📖 Overview  
+## Overview  
 
 This project examines **agricultural residue burning** in Heilongjiang Province using multi-source remote sensing data.  
 The study integrates **MODIS active fire detections**, **FY straw-burning monitoring data**, and **crop phenology rasters** to identify, classify, and analyze burning events at spatiotemporal and policy levels.  
@@ -20,13 +20,13 @@ The analysis is organized into four main tasks:
 
 ---
 
-## 📂 Repository Structure  
+## Repository Structure  
 
 ```
 ├── task1.ipynb              # Spatiotemporal pattern analysis (2010–2019)
-├── q2_cngf5020.ipynb        # Data preprocessing and crop–fire temporal linkage
+├── task2.ipynb        # Data preprocessing and crop–fire temporal linkage
 ├── task3.ipynb              # Long-term trend and turning point analysis
-├── q4_cngf5020.ipynb        # Gradient Boosting fire classification
+├── task4.ipynb        # Gradient Boosting fire classification
 ├── data/
 │   ├── modis_2010_China.csv
 │   ├── Heilongjiang_Maize_MA_2010.tif
@@ -38,7 +38,7 @@ The analysis is organized into four main tasks:
 
 ---
 
-## 🧭 Objectives  
+## Objectives  
 
 1. Explore spatiotemporal patterns of fire activity across Heilongjiang (2010–2019).  
 2. Link fire occurrences to crop maturity and identify likely agricultural fires.  
@@ -47,7 +47,7 @@ The analysis is organized into four main tasks:
 
 ---
 
-## 🔹 Task 1 – Spatiotemporal Distribution of Fire Activity (2010–2019)
+## 🔹 Task 1 – `task1.ipynb` Spatiotemporal Distribution of Fire Activity (2010–2019)
 
 ### **Objective**  
 Identify dominant temporal and spatial patterns of fire occurrence in Heilongjiang.
@@ -67,13 +67,13 @@ Identify dominant temporal and spatial patterns of fire occurrence in Heilongjia
 
 ---
 
-## 🔹 Task 2 – `q2_cngf5020.ipynb` Data Cleaning & Temporal Analysis  
+## 🔹 Task 2 – `task2.ipynb` Data Cleaning & Temporal Analysis  
 
 *(content unchanged from previous version)*  
 
 ---
 
-## 🔹 Task 3 – Long-Term Trend and Turning Point Analysis (2010–2019)
+## 🔹 Task 3 – `task3.ipynb` Long-Term Trend and Turning Point Analysis (2010–2019)
 
 ### **Objective**  
 Quantify county-level changes in burning rate and intensity over a decade, and detect policy-related turning points.
@@ -99,13 +99,13 @@ Quantify county-level changes in burning rate and intensity over a decade, and d
 
 ---
 
-## 🔹 Task 4 – `q4_cngf5020.ipynb` Machine Learning Classification  
+## 🔹 Task 4 – `task4.ipynb` Machine Learning Classification  
 
 *(content unchanged from previous version)*  
 
 ---
 
-## 📈 Summary of Insights  
+## Summary of Insights  
 
 - Fire activity peaks coincide with harvest periods (Weeks 39–41).  
 - Post-2017 policy enforcement significantly reduced both fire frequency and intensity.  
@@ -113,7 +113,7 @@ Quantify county-level changes in burning rate and intensity over a decade, and d
 
 ---
 
-## ⚙️ Environment & Dependencies  
+## Environment & Dependencies  
 
 ```bash
 Python >= 3.9 (tested on 3.10.12)  
@@ -129,7 +129,7 @@ datetime
 
 ---
 
-## 📌 Limitations & Future Work  
+## Limitations & Future Work  
 
 - Crop maturity datasets use fixed DOY values, introducing uncertainty.  
 - MODIS 4× daily observations may miss short-duration fires.  
