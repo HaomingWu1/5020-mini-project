@@ -21,11 +21,6 @@ Our objective is to design a **data-driven workflow** to detect, classify, and i
 ├── task3.ipynb        # Long-term trend and county-level change analysis
 ├── task4.ipynb        # Gradient Boosting classifier for fire type identification
 ├── data/
-│   ├── modis_2010_China.csv
-│   ├── Heilongjiang_Maize_MA_2010.tif
-│   ├── Heilongjiang_Wheat_MA_2010.tif
-│   ├── straw_burning_fire_point_monitoring.xlsx
-│   ├── CHN_County.shp
 └── README.md          # Final report (this document)
 ```
 
@@ -74,7 +69,7 @@ Objective: Quantify agricultural relevance by matching fires to crop maturity.
 Methods:
 - Defined function `match_fire_to_crop()` taking three inputs: fire dataset, crop raster, and crop type.
 - Computed `days_after_crop = fire_DOY - crop_DOY`.
-- Focused on −30 ≤ Δdays ≤ +60 window to isolate potential straw burning events.
+- Focus on fires occurring **30 days before to 60 days after crop maturity**.  
 - Calculated percentage of fires within **1–30 days after maturity** (key straw-burning indicator).  
 Findings:
 - 62% of fires occurred within 30 days after crop maturity.  
