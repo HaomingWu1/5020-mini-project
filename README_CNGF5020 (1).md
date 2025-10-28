@@ -1,9 +1,7 @@
 # Mini Group Project I – Investigating Agricultural Burning with Remote Sensing Data
 
-### Course
-CNGF5020: Remote Sensing for Environmental Monitoring  
-**Due Date:** 5 November 2025  
-**Group Members:** [Add names here]
+### Course  
+**Group Members:** 
 
 ---
 
@@ -141,22 +139,6 @@ Wind speed, humidity, and inversion layers influence fire detection probability 
 | FRP Intensity | Agricultural fires ~40% weaker than wildfires |
 
 ---
-
-## 7. References
-- NASA Earthdata. *Active Fire Data Attributes for MODIS and VIIRS*.
-- ESSD (2020). *ChinaCropPhen1km: High-resolution crop phenological dataset for China*.
-- SECMEP (2017). *FY Satellite-based Straw Burning Monitoring Data*.
-
----
-
-## 8. How to Run the Notebooks
-
-### Environment Setup
-- Python 3.10+  
-- Required libraries:
-  ```bash
-  pip install numpy pandas geopandas matplotlib scikit-learn rasterio
-  ```
 
 ### Execution Order
 1. Run `task1.ipynb` for initial fire point filtering and visualization.  
