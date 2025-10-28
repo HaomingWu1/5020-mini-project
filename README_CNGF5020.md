@@ -1,9 +1,8 @@
 # 🛰️ Mini Group Project I – Investigating Agricultural Burning with Remote Sensing Data
 
-### **Course:** CNGF5020  
-### **Region of Study:** Heilongjiang Province, China  
+ 
 ### **Contributors:** Group Members (replace with names)  
-### **Due Date:** November 5, 2025  
+ 
 
 ---
 
