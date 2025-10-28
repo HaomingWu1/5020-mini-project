@@ -6,7 +6,7 @@
 
 ---
 
-## 📖 Overview  
+## Overview  
 
 This project investigates **agricultural residue burning** in Heilongjiang Province using multi-source remote sensing data. The analysis integrates **MODIS fire detection**, **FY straw-burning monitoring data**, and **crop phenology datasets** to identify and classify agricultural burning events.  
 
@@ -18,7 +18,7 @@ The results contribute to understanding **where and when straw burning occurs**,
 
 ---
 
-## 📂 Repository Structure  
+## Repository Structure  
 
 ```
 ├── q2_cngf5020.ipynb      # Data preprocessing and spatiotemporal analysis
@@ -34,7 +34,7 @@ The results contribute to understanding **where and when straw burning occurs**,
 
 ---
 
-## 🧭 Objectives  
+## Objectives  
 
 1. Clean and preprocess satellite fire data within Heilongjiang Province.  
 2. Correlate fire occurrences with crop maturity timing to identify likely **agricultural fires**.  
@@ -43,7 +43,7 @@ The results contribute to understanding **where and when straw burning occurs**,
 
 ---
 
-## 🔍 Part I: `q2_cngf5020.ipynb` – Data Cleaning and Temporal-Spatial Analysis  
+## Part 2: `q2_cngf5020.ipynb` – Data Cleaning and Temporal-Spatial Analysis  
 
 ### **Purpose**  
 Prepare a reliable dataset for identifying possible straw-burning fires by cleaning satellite and field-verified data, and linking fire events to crop phenology information.
@@ -87,7 +87,7 @@ Prepare a reliable dataset for identifying possible straw-burning fires by clean
 
 ---
 
-## 🤖 Part II: `q4_cngf5020.ipynb` – Machine Learning Classification  
+## Part 4: `q4_cngf5020.ipynb` – Machine Learning Classification  
 
 ### **Purpose**  
 Develop a **Gradient Boosting model** to automatically classify fire events as agricultural or non-agricultural based on their spatial and temporal characteristics.
@@ -135,7 +135,7 @@ Develop a **Gradient Boosting model** to automatically classify fire events as a
 
 ---
 
-## 📈 Summary of Insights  
+## Summary of Insights  
 
 - A large proportion of fire events occur **within 1–30 days after crop maturity**, indicating strong temporal linkage to straw burning.  
 - Agricultural fires tend to have **lower FRP values** compared to wildfires, suggesting smaller-scale, controlled burns.  
@@ -143,7 +143,7 @@ Develop a **Gradient Boosting model** to automatically classify fire events as a
 
 ---
 
-## ⚙️ Environment & Dependencies  
+## Environment & Dependencies  
 
 ```bash
 Python >= 3.9
@@ -159,7 +159,7 @@ datetime
 
 ---
 
-## 📌 Limitations & Future Work  
+## Limitations & Future Work  
 
 - Crop maturity data may contain uncertainty (e.g., fixed DOY thresholds).  
 - Satellite detection frequency may miss short-duration fires.  
@@ -167,7 +167,7 @@ datetime
 
 ---
 
-## 👥 Acknowledgement  
+## Acknowledgement  
 
 This project was conducted as part of **CNGF5020 – Environmental Remote Sensing and GIS Applications** at [University Name].  
 We thank the teaching staff for providing the datasets and methodological guidance.
