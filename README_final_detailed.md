@@ -41,7 +41,7 @@ The analysis spans the years **2010–2019**, aiming to assess fire spatial-temp
   FY reference dataset used for partial validation
 
 ---
-## 4. Datasets and Preprocessing
+## 4. Data Preprocessing
 
 ### 4.1 MODIS Active Fire Data
 - **Spatial range:** 121–135°E, 43.5–53.5°N (Heilongjiang Province)  
