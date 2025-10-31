@@ -20,7 +20,7 @@ The analysis spans the years **2010–2019**, aiming to assess fire spatial-temp
 ├── task2.ipynb        # Match fire dates to crop maturity DOY from raster
 ├── task3.ipynb        # Analyze annual trends of county-level fire activity
 ├── task4.ipynb        # Train classifier to label agricultural vs. non-agricultural fire points
-├── data/              # Raw data files: fire CSVs, shapefiles, crop rasters
+├── data/              # Raw data files
 └── README.md
 ```
 
@@ -43,25 +43,36 @@ The analysis spans the years **2010–2019**, aiming to assess fire spatial-temp
 ---
 ## 4. Data Preprocessing
 
-### 4.1 MODIS Active Fire Data
-- **Spatial range:** 121–135°E, 43.5–53.5°N (Heilongjiang Province)  
-- **Attributes used:** latitude, longitude, acq_date, frp, confidence  
-- **Preprocessing:**  
-  1. Filtered out missing values and low-confidence detections.  
-  2. Converted time strings (e.g., `1230` → `12:30`) using `datetime`.  
-  3. Derived temporal features: `year`, `DOY` (day of year), and `week`.  
-  4. Removed outliers beyond province boundaries.  
-  5. Combined date and time into ISO datetime for temporal aggregation.
+## 4. Data Preprocessing (Integrated in Each Task)
 
-### 4.2 FY Straw-Burning Monitoring Data
-- **Source:** Validated by field surveys (August 2016 – February 2017).  
-- **Cleaning:** Removed invalid or missing coordinates and clipped to Heilongjiang boundaries using `geopandas`.  
-- Converted to `GeoDataFrame` for spatial overlay analysis.
+Unlike centralized preprocessing pipelines, this project adopted a task-driven preprocessing strategy. Each dataset was cleaned and processed within the context of the specific analytical objective. Below we summarize key data preprocessing steps as applied across Tasks 1–4.
 
-### 4.3 Crop Phenology Raster (Heilongjiang_Maize_MA_2010.tif, Wheat_MA_2010.tif)
-- Each pixel represents the **Day of Year (DOY)** when crops reach maturity.  
-- Used to identify harvest windows for maize and wheat (DOY ≈ 270–290).  
-- Combined with fire DOY to calculate the **time difference between fire and crop maturity (Δdays)**.
+### Task 1 – Spatiotemporal Pattern Analysis
+- **Data Source:** MODIS Active Fire Data (2010–2019)
+- **Processing Steps:**
+  - Multiple yearly CSVs were loaded and concatenated.
+  - Hold "latitude, longitude, acq_date, confidence"
+  - Fire points were filtered to the spatial bounds of Heilongjiang (121–135°E, 43.5–53.5°N).
+  - Derived temporal fields included: `year`, `doy` (day of year), `week`.
+
+### Task 2 + Task4 – Crop Maturity Alignment + Classification
+- **Data Sources:** MODIS Fire Data + FY (Fengyun) satellite-based straw burning fire point monitoring data
+- **Processing Steps(MODIS Fire Data):**
+  - Keep only the required fields (e.g., latitude, longitude, date, fire intensity, etc.)
+  - Process time format: Convert time (e.g., "1230") to "12:30"
+  - Filter: Retain fire points within Heilongjiang Province (43-53 degrees latitude, 121-135 degrees longitude)
+  - Further filter: FRP (fire intensity)> 0, and essential data including latitude, longitude, and date are complete.
+  - Merge dates and times into standard time format (e.g., "2010-05-01 12:30")
+- **Processing Steps(FY satellite-based straw burning fire point monitoring data):**
+  - Remove records with missing latitude and longitude (data without location information is useless)
+  - Filter out fire points within Heilongjiang Province, excluding invalid data such as records without location (missing latitude and longitude) or outside the province, to ensure the subsequent analysis focuses on the target area.
+  - Use gpd.GeoDataFrame to convert regular table data into "geographic data", so that each fire point has spatial location information with latitude and longitude.
+
+### Task 3 – Trend and Change Analysis
+- **Data Sources:** Heilongjiang_Maize_MA_2010.tif & Wheat_2010.tif
+- **Processing Steps:**
+  - Manually set the longitude and latitude bounding boxes for 13 prefecture-level cities
+  
 
 ---
 ## 5. Methodology and Results
@@ -92,9 +103,13 @@ The analysis spans the years **2010–2019**, aiming to assess fire spatial-temp
 **Method:**
 - Loaded raster files representing crop maturity (DOY)
 - For each fire point, used rasterio to extract crop maturity DOY from pixel value
-- Computed Δdays as the difference between fire DOY and crop DOY
-- Created histograms and scatter plots to show distribution of Δdays
-- No explicit thresholding was applied (e.g., ±30), but analysis focused on temporal alignment
+- Match yearly fire data to corresponding maize and wheat maturity rasters.  
+- Compute **`days_after_crop`** (difference between fire date and crop maturity).    
+- Focus on fires occurring **30 days before to 60 days after crop maturity**.  
+- Calculate indicators:  
+  - Mean/median of `days_after_crop`  
+  - Proportion of fires within **1–30 days after maturity** (key straw-burning indicator)  
+  - Visualize using histograms to show timing distribution. 
 
 **Findings:**
 - Straw burning usually occurs within 1 to 30 days after the harvest of crops (when they are mature) (farmers will deal with the straw after the harvest). The higher this proportion, the stronger the correlation between the fire point and the burning of the crop straw.
@@ -108,12 +123,16 @@ The analysis spans the years **2010–2019**, aiming to assess fire spatial-temp
 **Objective:** Analyze yearly trend in fire occurrence at the county level.
 
 **Method:**
-- Merged fire point locations with county boundary shapefile to assign county names
-- For each year and county, counted number of fire points
-- Loaded binary cropland raster map to determine total number of cropland pixels per county
-- Normalized yearly fire counts by cropland area (fire density)
-- Plotted time series of county fire densities over 10 years
-- No statistical tests (Mann–Kendall or Theil–Sen) applied, only visual trend analysis
+- County Mapping: Used raw numpy to read crop raster files (TIFF), applied hardcoded GeoTransform parameters and bounding boxes to extract county-specific pixels — no use of geospatial libraries
+- Burn Rate Calculation: Standardized fire intensity across counties using the formula:
+  - burn_rate = yearly fire points ÷ crop pixels per county × 1000(expressed as fires per 1,000 pixels, to eliminate area bias)
+- Trend Analysis:
+  - Applied Theil-Sen slope estimator to measure trend direction
+  - Used Mann-Kendall test to assess significance (α = 0.05)
+- Breakpoint Detection: Identified year of greatest drop in residuals from the province-wide annual fire trend line, used as a simple turning point estimate
+- Visualization:
+  - Colored bar charts per county (blue = improvement, red = deterioration, gray = not significant).
+  - Provincial fire trend line plotted with a red dashed line indicating the detected breakpoint year.
 
 **Findings:**
 - Apparent decline after **2017**, especially in Harbin and Qiqihar
@@ -128,16 +147,16 @@ The analysis spans the years **2010–2019**, aiming to assess fire spatial-temp
 **Objective:** Classify fire points as agricultural or non-agricultural.
 
 **Method:**
-- Constructed feature matrix from MODIS fire attributes and spatial overlay:
-  - DOY, hour, latitude, longitude, FRP, raster-based crop type, etc.
-- Label assignment was done using spatial and temporal logic (e.g., fire in cropland + near harvest)
+- Seven features were derived to represent fire characteristics
+  - DOY, hour, latitude, longitude, FRP, in_maize, in_wheat etc.
+- Inform the model in advance about which fire points are agricultural fires, enabling it to learn the corresponding features
 - Split dataset into training and test sets (typically 70/30 split)
-- Trained a tree-based classifier (Gradient Boosting)
-- Evaluated model using accuracy, precision, recall metrics on test set
+- Standardization features. The numerical ranges of different features vary significantly (for example, hour ranges from 0 to 23, while frp ranges from 0 to 1000). Standardization to the same order of magnitude is required
+- Trained a tree-based classifier (Gradient Boosting) and Use the remaining 30% of the data for testing
+- Predict all fire points —— Provide the final classification result
 
-**Findings:**
-- Classifier achieved high performance 
-- Most important features:  FRP and Intra-day time distribution
+**Findings:** 
+- Most important features: FRP and Intra-day time distribution
 - Agricultural fires tend to have lower FRP (avg: 6.4 MW vs 15.75 MW) and peak during daytime (around 2:00), consistent with human straw-burning activity.
 - In contrast, non-agricultural fires show higher intensity and tend to peak around 4:00 AM.
 
