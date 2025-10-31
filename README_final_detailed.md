@@ -41,8 +41,30 @@ The analysis spans the years **2010–2019**, aiming to assess fire spatial-temp
   FY reference dataset used for partial validation
 
 ---
+## 4. Datasets and Preprocessing
 
-## 4. Methodology and Results
+### 4.1 MODIS Active Fire Data
+- **Spatial range:** 121–135°E, 43.5–53.5°N (Heilongjiang Province)  
+- **Attributes used:** latitude, longitude, acq_date, frp, confidence  
+- **Preprocessing:**  
+  1. Filtered out missing values and low-confidence detections.  
+  2. Converted time strings (e.g., `1230` → `12:30`) using `datetime`.  
+  3. Derived temporal features: `year`, `DOY` (day of year), and `week`.  
+  4. Removed outliers beyond province boundaries.  
+  5. Combined date and time into ISO datetime for temporal aggregation.
+
+### 4.2 FY Straw-Burning Monitoring Data
+- **Source:** Validated by field surveys (August 2016 – February 2017).  
+- **Cleaning:** Removed invalid or missing coordinates and clipped to Heilongjiang boundaries using `geopandas`.  
+- Converted to `GeoDataFrame` for spatial overlay analysis.
+
+### 4.3 Crop Phenology Raster (Heilongjiang_Maize_MA_2010.tif, Wheat_MA_2010.tif)
+- Each pixel represents the **Day of Year (DOY)** when crops reach maturity.  
+- Used to identify harvest windows for maize and wheat (DOY ≈ 270–290).  
+- Combined with fire DOY to calculate the **time difference between fire and crop maturity (Δdays)**.
+
+---
+## 5. Methodology and Results
 
 ### Task 1 – Spatiotemporal Pattern Analysis
 
