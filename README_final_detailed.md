@@ -99,9 +99,9 @@ Unlike centralized preprocessing pipelines, this project adopted a task-driven p
 **Objective:** Link fire occurrences to crop harvesting time.
 
 **Method:**
-- Loaded raster files representing crop maturity (DOY)
-- For each fire point, used rasterio to extract crop maturity DOY from pixel value
-- Match yearly fire data to corresponding maize and wheat maturity rasters.  
+- The function defines three input parameters (fire point geographic data, crop raster file path, and crop type). The core approach is ** "year-to-year correspondence" **: First, identify the crop data for a specific year, then locate the corresponding fire points. Next, calculate the time difference between each fire point and the corresponding crop maturity date. Finally, merge the results across all years.
+- Our function primarily addresses the identification of fire points associated with straw burning. By correlating "fire point locations" with "crop cultivation zones and maturity periods," and calculating temporal discrepancies, we can filter out "fire points occurring shortly after crop maturity." These fire points are high-probability candidates for straw burning. Without this function, fire point data and crop data would remain two isolated "information silos," making correlation analysis impossible.
+- Analyze the distribution pattern of the time difference between fire point occurrence and crop maturity  
 - Compute **`days_after_crop`** (difference between fire date and crop maturity).    
 - Focus on fires occurring **30 days before to 60 days after crop maturity**.  
 - Calculate indicators:  
