@@ -41,8 +41,6 @@ The analysis spans the years **2010–2019**, aiming to assess fire spatial-temp
   FY reference dataset used for partial validation
 
 ---
-## 4. Data Preprocessing
-
 ## 4. Data Preprocessing (Integrated in Each Task)
 
 Unlike centralized preprocessing pipelines, this project adopted a task-driven preprocessing strategy. Each dataset was cleaned and processed within the context of the specific analytical objective. Below we summarize key data preprocessing steps as applied across Tasks 1–4.
