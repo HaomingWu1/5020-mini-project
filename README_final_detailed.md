@@ -182,4 +182,41 @@ Unlike centralized preprocessing pipelines, this project adopted a task-driven p
 ```bash
 pip install pandas geopandas numpy rasterio matplotlib scikit-learn
 ```
+## 8. Methodological Limitations and Uncertainty(Challenge question 2): 
+
+### Limitations of Methodology
+
+While our classification of agricultural fires is grounded in spatial and temporal alignment with crop maturity, several sources of uncertainty affect the robustness of our results:
+
+- **Raster Resolution**  
+  The crop maturity maps have a coarse resolution (~1 km). Fire points, which are point-based detections from MODIS (approx. 1 km²), may fall into mixed land cover pixels, introducing misclassification risk.
+
+- **Fixed Crop Calendar Assumption**  
+  We applied a fixed DOY (Day of Year) raster for each crop type across all years (2010–2019). This ignores annual variability in planting/harvest times due to climate or farming practices, possibly misaligning fire and crop maturity periods.
+
+- **Binary Crop Presence (in_maize / in_wheat)**  
+  The model simplifies crop detection by assigning a binary label based on raster overlay, without accounting for crop density, rotation, or intercropping.
+
+- **FY Reference Dataset Limitation**  
+  The Fengyun fire monitoring dataset only covers a short period (Aug 2016 – Feb 2017) and cannot provide validation for other years, limiting the reliability of model training labels.
+
+- **Spatial Masking Assumptions**  
+  The crop raster files are not matched with actual cropland boundaries or land-use masks, so fires occurring in non-cropland areas may be mistakenly linked to agriculture.
+
+### Impact on Results
+
+These limitations can affect the accuracy of agricultural fire classification, especially in edge pixels or transition zones between land use types.  
+For instance, wheat fires show stronger alignment (48.47%) because wheat is mostly planted in concentrated zones, while maize fields may be more dispersed or harder to delineate in the raster.
+
+### Suggested Improvements
+
+**Recommended Additional Dataset:**  
+**Land Use / Land Cover (LULC) Data**
+
+**Justification:**  
+Incorporating high-resolution LULC data would allow us to mask non-cropland areas (e.g., forest, urban), improving the precision of fire–crop overlays. Fires outside agricultural zones could be excluded with higher confidence.
+
+**Implementation:**  
+Apply the LULC layer as a spatial filter before calculating `days_after_crop` or training the classifier.  
+This would reduce noise from irrelevant fire points and enhance the model’s focus on genuine agricultural burning.
 
