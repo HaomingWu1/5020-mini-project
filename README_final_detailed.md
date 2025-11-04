@@ -153,7 +153,7 @@ Unlike centralized preprocessing pipelines, this project adopted a task-driven p
 
 **Findings:** 
 - Most important features: FRP and Intra-day time distribution
-- Agricultural fires tend to have lower FRP (avg: 6.4 MW vs 15.75 MW) and peak during daytime (around 2:00), consistent with human straw-burning activity.
+- Agricultural fires tend to have lower FRP (avg: 8.77 MW vs 15.84 MW) and peak during daytime (around 2:00), consistent with human straw-burning activity.
 - In contrast, non-agricultural fires show higher intensity and tend to peak around 4:00 AM.
 
 
