@@ -145,7 +145,7 @@ Unlike centralized preprocessing pipelines, this project adopted a task-driven p
 **Method:**
 - Seven features were derived to represent fire characteristics
   - DOY, hour, latitude, longitude, FRP, in_maize, in_wheat etc.
-- Inform the model in advance about which fire points are agricultural fires, enabling it to learn the corresponding features
+- Inform the model in advance about which fire points are agricultural fires, enabling it to learn the corresponding features. Agricultural fire labels were assigned based on whether a fire point occurred within 60 days after the crop maturity date 
 - Split dataset into training and test sets (typically 70/30 split)
 - Standardization features. The numerical ranges of different features vary significantly (for example, hour ranges from 0 to 23, while frp ranges from 0 to 1000). Standardization to the same order of magnitude is required
 - Trained a tree-based classifier (Gradient Boosting) and Use the remaining 30% of the data for testing
