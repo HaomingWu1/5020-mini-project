@@ -1,7 +1,7 @@
 # Mini Group Project I – Investigating Agricultural Burning with Remote Sensing Data
 
 ### Course: CNGF5020  
-**Group Members:** [Fill in Names]
+**Group Members:** Haoming Wu, Yihao Su, Wenbo Duan, Linwei Li
 
 ---
 
@@ -28,17 +28,17 @@ The analysis spans the years **2010–2019**, aiming to assess fire spatial-temp
 
 ## 3. Data Sources
 
-- **MODIS Active Fire Detections (2010–2019):**  
-  Latitude, longitude, acquisition date/time, FRP, confidence
+- **Satellite Fire Data:**  
+  modis_2010_China.csv(1 km; 4 times per day). Attributes include latitude, longitude, time, Fire Radiative Power (FRP), etc. Spatiotemporal coverage: China, 2010–2019.
 
 - **Cropland distribution and phenological data:**  
-  Raster images showing the DOY when crops mature
+  Heilongjiang_Maize_MA_2010.tif and Heilongjiang_Wheat_MA_2010.tif. Raster datasets of maize and wheat maturity DOY (Day of Year) in Heilongjiang Province from 2010 to 2019, with a spatial resolution of 1 km. (Raster values represent the DOY of crop maturity; pixels with NoData indicate non-maize or non-wheat areas.)
 
-- **Administrative Boundaries:**  
-  County-level shapefiles of Heilongjiang
+- **County-level administrative boundaries of China:**  
+  CHN_County.shp, used for identifying the administrative regions of wildfire points.
 
 - **Fengyun Fire Monitoring (2016–2017):**  
-  FY reference dataset used for partial validation
+  straw burning fire point monitoring data.xslx (August 2016 – February 2017). This dataset was validated through field surveys and cross-comparison with other satellite observations, providing relatively high accuracy and serving as a reference for classification (note: the dataset does not specify the crop type associated with the straw burning).
 
 ---
 ## 4. Data Preprocessing (Integrated in Each Task)
@@ -129,12 +129,10 @@ Unlike centralized preprocessing pipelines, this project adopted a task-driven p
   - Used Mann-Kendall test to assess significance (α = 0.05)
 - Breakpoint Detection: Identified year of greatest drop in residuals from the province-wide annual fire trend line, used as a simple turning point estimate
 - Visualization:
-  - Colored bar charts per county (blue = improvement, red = deterioration, gray = not significant).
   - Provincial fire trend line plotted with a red dashed line indicating the detected breakpoint year.
 
 **Findings:**
 - Apparent decline after **2017**, especially in Harbin and Qiqihar
-- 2017 marked a province-wide drop (>60%) consistent with intensified enforcement of open burning bans
 - Mean FRP decreased by 22%, suggesting reduced intensity
 
 
