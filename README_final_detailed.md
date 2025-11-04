@@ -164,11 +164,9 @@ Unlike centralized preprocessing pipelines, this project adopted a task-driven p
 | Core Task                        | Key Result                                                                 |
 |----------------------------------|----------------------------------------------------------------------------|
 | 1. What are the dominant spatiotemporal patterns of fire activity in the study region?| Fire peaks in **weeks 39–41 (Sept–Oct)**. Hotspots in **Harbin, Qiqihar, Sanjiang Plain** |
-| 2. To what extent can the observed fire hotspots be attributed to the post-harvest 
-burning of corn and wheat?       | Wheat: 48.47% classified as agricultural fires; Maize: 17.19%  |
+| 2. To what extent can the observed fire hotspots be attributed to the post-harvest burning of corn and wheat?       | Wheat: 48.47% classified as agricultural fires; Maize: 17.19%  |
 | 3. What are the long-term spatiotemporal trends of fire activity (2010–2019)? | After **2017**, most counties show a sharp decline in fire density  |
-| 4. Are there distinct characteristics that differentiate agricultural fires from other 
-fires?    | agricultural fires show lower FRP and peak in daytime (2:00) |
+| 4. Are there distinct characteristics that differentiate agricultural fires from other fires?    | agricultural fires show lower FRP and peak in daytime (2:00) |
 
 ---
 
