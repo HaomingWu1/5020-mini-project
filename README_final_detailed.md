@@ -41,6 +41,7 @@ The analysis spans the years **2010–2019**, aiming to assess fire spatial-temp
   straw burning fire point monitoring data.xslx (August 2016 – February 2017). This dataset was validated through field surveys and cross-comparison with other satellite observations, providing relatively high accuracy and serving as a reference for classification (note: the dataset does not specify the crop type associated with the straw burning).
 
 ---
+
 ## 4. Data Preprocessing (Integrated in Each Task)
 
 Unlike centralized preprocessing pipelines, this project adopted a task-driven preprocessing strategy. Each dataset was cleaned and processed within the context of the specific analytical objective. Below we summarize key data preprocessing steps as applied across Tasks 1–4.
@@ -70,9 +71,16 @@ Unlike centralized preprocessing pipelines, this project adopted a task-driven p
 - **Data Sources:** Heilongjiang_Maize_MA_2010.tif & Wheat_2010.tif
 - **Processing Steps:**
   - Manually set the longitude and latitude bounding boxes for 13 prefecture-level cities
-  
 
+### Challenge 3 – Meteorology & Pollution (PM₂.₅)
+- **Data Sources:** MODIS active fires & CAMS PM₂.₅ data
+- **Processing Steps:**
+  - Aggregate fire counts per day across Heilongjiang
+  - Compute daily regional average PM₂.₅
+  - Align time series from January 1, 2010 to December 31, 2019 using inner join on date
+  
 ---
+
 ## 5. Methodology and Results
 
 ### Task 1 – Spatiotemporal Pattern Analysis
@@ -135,7 +143,6 @@ Unlike centralized preprocessing pipelines, this project adopted a task-driven p
 - Apparent decline after **2017**, especially in Harbin and Qiqihar
 - Mean FRP decreased by 22%, suggesting reduced intensity
 
-
 ---
 
 ### Task 4 – Classification + Challange Question 1
@@ -156,6 +163,35 @@ Unlike centralized preprocessing pipelines, this project adopted a task-driven p
 - Agricultural fires tend to have lower FRP (avg: 8.77 MW vs 15.84 MW) (answering Challange Question 1)and peak during daytime (around 2:00), consistent with human straw-burning activity.
 - In contrast, non-agricultural fires show higher intensity and tend to peak around 4:00 AM.
 
+---
+
+### Challenge 3 – Meteorology & Pollution (PM₂.₅)
+
+**Objective:** To evaluate the short-term impact of fire activity on regional air quality in Heilongjiang (2010–2019), using MODIS fire data and CAMS PM₂.₅ data. We focused on identifying lagged correlations between fire peaks and PM₂.₅ concentrations, and quantifying how straw burning may contribute to elevated particulate levels.
+
+**Method:**
+- Generate daily value
+  - fire_daily = fires.groupby('acq_date').size().reset_index(name='fire_count')
+  - pm25_daily = pm25_hlj.groupby('date')['pm2p5'].mean().reset_index()
+- Lagged Correlation Analysis:
+  - Compute Pearson correlation between fire counts and PM₂.₅ concentrations at lags from 0 to 7 days:
+  - r(τ) = corr(F(t), P(t+τ)), where F(t) is fire count on day t, and P(t+τ) is PM₂.₅ on day t+τ.
+- Peak Alignment Check:
+  - Define fire and PM₂.₅ peaks as top 5% daily values
+  - Count how often PM₂.₅ peaks occur within 1–2 days after fire peaks
+  - Used to assess immediate pollution response after burning events
+
+**Findings:** 
+| Lag (days) | Pearson Correlation | Interpretation        |
+| ---------- | ------------------- | --------------------- |
+| 0          | 0.32                | Weak same-day signal  |
+| 1          | **0.38**            | Strongest correlation |
+| 2          | 0.36                | Still significant     |
+| ≥3         | <0.25               | Rapid decay           |
+  - PM₂.₅ peaks within 1 day after fire peaks: 29 times
+  - PM₂.₅ peaks within 2 days: 28 times
+  - Combined: ~30% of fire peaks followed by PM₂.₅ peaks within 48 hours
+  - Conclusion:From 2010 to 2019, PM₂.₅ concentrations showed the strongest lagged response to fire activity at 1-day delay (r = 0.38). Nearly one-third of fire peaks were followed by PM₂.₅ peaks within 1–2 days, suggesting that straw burning has a measurable short-term impact on regional air quality. These results highlight a 24–48 hour window where PM₂.₅ spikes are likely, offering valuable timing for air quality warnings and control interventions.
 
 ---
 
