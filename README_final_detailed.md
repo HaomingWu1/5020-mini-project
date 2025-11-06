@@ -19,7 +19,8 @@ The analysis spans the years **2010–2019**, aiming to assess fire spatial-temp
 ├── task1.ipynb        # Extract MODIS fire points and visualize seasonal patterns
 ├── task2.ipynb        # Match fire dates to crop maturity DOY from raster
 ├── task3.ipynb        # Analyze annual trends of county-level fire activity
-├── task4.ipynb        # Train classifier to label agricultural vs. non-agricultural fire points
+├── task4.ipynb        # Train classifier to label agricultural vs. non-agricultural fire points and Analyze the significant differences in intensity between agricultural fires and "other/wildfires" through FRP(Challenge1)
+├── Challenge3.ipynb   # Analyze short-term impact of fire on PM2.5 air pollution
 ├── data/              # Raw data files
 └── README.md
 ```
