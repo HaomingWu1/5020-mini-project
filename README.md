@@ -212,7 +212,9 @@ Unlike centralized preprocessing pipelines, this project adopted a task-driven p
 
 ## 7. Execution Instructions
 
-1. Ensure the raw data files are prepared
+1. Ensure the raw data files are prepared(This project uses Git LFS to manage large files (e.g., `.tif`, `.csv`).  
+> Please install Git LFS before cloning: https://git-lfs.com  
+> Or simply click "Code" → "Download ZIP" to get all data.
 2. Place them in the `/data/` folder or adjust paths in notebooks
 3. Run notebooks in order: `task1 → task2 → task3 → task4`
 4. Install required packages using pip:
