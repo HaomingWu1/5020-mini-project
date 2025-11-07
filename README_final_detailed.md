@@ -41,6 +41,9 @@ The analysis spans the years **2010–2019**, aiming to assess fire spatial-temp
 - **Fengyun Fire Monitoring (2016–2017):**  
   straw burning fire point monitoring data.xslx (August 2016 – February 2017). This dataset was validated through field surveys and cross-comparison with other satellite observations, providing relatively high accuracy and serving as a reference for classification (note: the dataset does not specify the crop type associated with the straw burning).
 
+- **cams pm2.5 daily data:**
+  cams_pm25_daily.csv (daily grid-level data, 2010–2019).This dataset contains near-surface PM₂.₅ concentrations for multiple grid points across Heilongjiang Province.
+  
 ---
 
 ## 4. Data Preprocessing (Integrated in Each Task)
